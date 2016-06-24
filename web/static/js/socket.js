@@ -53,14 +53,17 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 
 socket.connect()
 
+var $counter = $("#counter")
+var $increment = $("#increment")
+
 // Now that you are connected, you can join channels with a topic:
 let channel = socket.channel("rooms:lobby", {})
 channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
+  .receive("ok", resp => {
+    console.log("Joined successfully", resp)
+    $counter.text(resp.count)
+  })
   .receive("error", resp => { console.log("Unable to join", resp) })
-
-var $counter = $("#counter")
-var $increment = $("#increment")
 
 channel.on("update", payload => {
   $counter.text(payload.count)

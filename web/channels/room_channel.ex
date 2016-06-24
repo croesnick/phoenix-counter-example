@@ -5,7 +5,7 @@ defmodule Counter.RoomChannel do
 
   def join("rooms:lobby", payload, socket) do
     if authorized?(payload) do
-      {:ok, socket}
+      {:ok, %{count: Counter.Store.value}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
@@ -14,10 +14,8 @@ defmodule Counter.RoomChannel do
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (rooms:lobby).
   def handle_in("increment", _payload, socket) do
-    #TODO Increment the counter, save it via a genserver, and send
-    #     the new state to all clients
-    count = 1
-
+    Counter.Store.increment
+    count = Counter.Store.value
     Logger.info "Count: #{inspect count}"
 
     broadcast socket, "update", %{count: count}
