@@ -1,10 +1,14 @@
 # Counter
+A simple counter which can be incremented by any visitor whereas only the server holds and distributes the state.
 
-To start your Phoenix app:
+# Installation
+
+You need to have Erlang, Elixir, node.js and Phoenix installed. Please refer to the [Phoenix installation guide](http://www.phoenixframework.org/docs/installation) for these components.
+
+# Starting the Server
 
   1. Install dependencies with `mix deps.get`
-  2. Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  3. Start Phoenix endpoint with `mix phoenix.server`
+  2. Start Phoenix endpoint with `mix phoenix.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
