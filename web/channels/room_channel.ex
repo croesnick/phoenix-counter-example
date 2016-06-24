@@ -1,6 +1,8 @@
 defmodule Counter.RoomChannel do
   use Counter.Web, :channel
 
+  require Logger
+
   def join("rooms:lobby", payload, socket) do
     if authorized?(payload) do
       {:ok, socket}
@@ -9,16 +11,16 @@ defmodule Counter.RoomChannel do
     end
   end
 
-  # Channels can be used in a request/response fashion
-  # by sending replies to requests from the client
-  def handle_in("ping", payload, socket) do
-    {:reply, {:ok, payload}, socket}
-  end
-
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (rooms:lobby).
-  def handle_in("shout", payload, socket) do
-    broadcast socket, "shout", payload
+  def handle_in("increment", _payload, socket) do
+    #TODO Increment the counter, save it via a genserver, and send
+    #     the new state to all clients
+    count = 1
+
+    Logger.info "Count: #{inspect count}"
+
+    broadcast socket, "update", %{count: count}
     {:noreply, socket}
   end
 

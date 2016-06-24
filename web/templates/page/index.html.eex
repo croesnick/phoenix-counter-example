@@ -34,3 +34,6 @@
     </ul>
   </div>
 </div>
+
+<button id="increment" class="btn btn-primary" type="button">+1</button>
+<div id="counter">0</div>
